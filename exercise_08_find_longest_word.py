@@ -2,29 +2,19 @@
 
 
 def find_longest_word(filename):
-    """
-    Lee el archivo, lo divide en palabras (separadas por cualquier tipo
-    de whitespace) y retorna la palabra más larga.
+    import os
+    if not os.path.exists(filename):
+        raise FileNotFoundError("No existe el archivo")
+    longest_word = ""
+    with open(filename, 'r',) as file:
+        text = file.read()
+        words = text.split()
 
-    Reglas:
-    - Si hay varias palabras con la misma longitud máxima, retornar la
-      PRIMERA en aparecer.
-    - Si el archivo no existe, propagar FileNotFoundError.
-    - Si el archivo no tiene ninguna palabra (está vacío o solo tiene
-      espacios/saltos de línea), lanzar ValueError("file has no words").
+        if not words:
+            raise ValueError("file has no words")
 
-    Args:
-        filename: str - nombre del archivo a leer.
+        for word in words:
+            if len(word) > len(longest_word):
+                longest_word = word
 
-    Returns:
-        str - la palabra más larga del archivo.
-
-    Raises:
-        FileNotFoundError: si el archivo no existe.
-        ValueError: si el archivo no tiene palabras.
-
-    Ejemplo:
-        # archivo contiene: "el gato corre rapido\npor el jardin\n"
-        find_longest_word("texto.txt") -> "rapido"
-    """
-    pass  # Reemplazar con tu implementación
+    return longest_word
